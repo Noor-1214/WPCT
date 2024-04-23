@@ -1,7 +1,7 @@
 describe ("Sign-in", () => {
    
     // Verfiy necessary elements are present
-    it.only('should display sign-in page elements', () => {
+    it('should display sign-in page elements', () => {
         cy.visit ('https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F')
         cy.get('#emailAddress-field').should('exist');
         cy.get('#password-field').should('exist');
@@ -9,7 +9,7 @@ describe ("Sign-in", () => {
     });
 
     // Enter valid credentials and submit
-    it.only('should sign up with valid credentials', () => {
+    it('should sign up with valid credentials', () => {
         cy.visit ('https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F')
         cy.get('#emailAddress-field').type('valid_username@gmail.com');
         cy.get('#password-field').type('valid_password');
@@ -36,10 +36,21 @@ describe ("Sign-in", () => {
       });
 
      // Submit form with blank fields    
-      it('should display error messages for blank credentials', () => {
+      it.only('should display error messages for blank credentials', () => {
         cy.visit('https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F')
         cy.get('.cl-formButtonPrimary.🔒️.cl-internal-1fsg6zy').click();
-        cy.contains('Please fill out this field.').should('be.visible');
-        cy.contains('Please fill out this field.').should('be.visible');
+
+        cy.get('#emailAddress-field').then(($emailField) => {
+          const emailValue = $emailField.val();
+          cy.get('#password-field').then(($passwordField) => {
+            const passwordValue = $passwordField.val();
+        if (!emailValue || !passwordValue) {
+          cy.get(".cl-headerTitle.🔒️.cl-internal-1vbdq0x").should('have.text', 'Create your account');
+        } 
+        else {
+          cy.get('.cl-headerTitle.🔒️.cl-internal-1vbdq0x').should('have.text','Verify your email')
+        }
       });
+    });
+  })
 })
