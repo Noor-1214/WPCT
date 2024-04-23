@@ -23,3 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import 'cypress-xpath'
+import 'cypress-file-upload';
+/// <reference types = "cypress-xpath"/>
+/// <reference types='Cypress'/>
+
+
+// Custom commands for clicking on links using labels 
+Cypress.Commands.add('ClickLink',(label)=>{
+    cy.get('a').contains(label).click();
+
+})

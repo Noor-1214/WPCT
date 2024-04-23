@@ -9,7 +9,7 @@ describe ("Sign-in", () => {
     });
 
     // Enter valid credentials and submit
-    it.only('should sign in with valid credentials', () => {
+    it('should sign in with valid credentials', () => {
         cy.visit ('https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F')
         cy.get('#emailAddress-field').type('valid_username@gmail.com');
         cy.get('#password-field').type('valid_password');
@@ -40,4 +40,16 @@ describe ("Sign-in", () => {
         cy.contains('Please enter your email').should('be.visible');
         cy.contains('Please enter your password').should('be.visible');
       });
+
+      it.only ('sign-in', ()=>{
+        cy.visit('https://workpermitconsultancy.com/')
+        cy.wait(1000)
+        cy.xpath("//a[normalize-space()='Sign in']").click()
+        cy.get("#identifier-field").type('noor.huda@sequenx.com')
+        cy.get(".cl-formButtonPrimary").click()
+        cy.wait(1000)
+        cy.get("#password-field").type('dont@me28')
+        cy.get(".cl-formButtonPrimary").click()
+        cy.wait(500)
+      })
 })
