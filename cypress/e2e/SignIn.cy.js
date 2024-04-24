@@ -1,3 +1,5 @@
+import Login from "..//PageObjects/Login";
+
 describe ("Sign-in", () => {
    
     // Verfiy necessary elements are present
@@ -9,13 +11,18 @@ describe ("Sign-in", () => {
     });
 
     // Enter valid credentials and submit
-    it('should sign in with valid credentials', () => {
-        cy.visit ('https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F')
-        cy.get('#emailAddress-field').type('valid_username@gmail.com');
-        cy.get('#password-field').type('valid_password');
-        cy.get('.cl-formButtonPrimary.🔒️.cl-internal-1fsg6zy').click();
-        cy.url().should('eq', 'https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F');
-      });
+    it.only ('Login using valid credentials', () => {
+      cy.visit("https://workpermitconsultancy.com/")
+      cy.get("body > div:nth-child(2) > header:nth-child(1) > nav:nth-child(1) > div:nth-child(5) > a:nth-child(1)").click()
+      cy.wait(1000)
+      cy.fixture('WPCT').then((data) =>{
+      const ln = new Login();
+      ln.setEmail(data.email)
+      ln.clickContinue();
+      ln.setPassword(data.password)
+      ln.clickContinue();
+      ln.verifyLogin();
+    })
     
     // Enter invalid Email and submit
       it('should display error message for invalid Email', () => {
@@ -40,16 +47,5 @@ describe ("Sign-in", () => {
         cy.contains('Please enter your email').should('be.visible');
         cy.contains('Please enter your password').should('be.visible');
       });
-
-      it.only ('sign-in', ()=>{
-        cy.visit('https://workpermitconsultancy.com/')
-        cy.wait(1000)
-        cy.xpath("//a[normalize-space()='Sign in']").click()
-        cy.get("#identifier-field").type('noor.huda@sequenx.com')
-        cy.get(".cl-formButtonPrimary").click()
-        cy.wait(1000)
-        cy.get("#password-field").type('dont@me28')
-        cy.get(".cl-formButtonPrimary").click()
-        cy.wait(500)
-      })
+})
 })

@@ -1,20 +1,21 @@
+import Login from "..//PageObjects/Login";
+
 describe ('Apply Now Page test', () =>{
     it.only('sign-in', ()=>{
-        cy.visit('https://workpermitconsultancy.com/')
-        cy.wait(1000)
-        cy.xpath("//a[normalize-space()='Sign in']").click()
-        cy.get("#identifier-field").type('wpct.123@gmail.com')
-        cy.get(".cl-formButtonPrimary").click()
-        cy.wait(1000)
-        cy.get("#password-field").type('wpct1234')
-        cy.get(".cl-formButtonPrimary").click()
-        cy.wait(500)
-        cy.url().should('eq', 'https://workpermitconsultancy.com/')
-        cy.wait(3000)
+      cy.visit("https://workpermitconsultancy.com/")
+      cy.get("body > div:nth-child(2) > header:nth-child(1) > nav:nth-child(1) > div:nth-child(5) > a:nth-child(1)").click()
+      cy.wait(1000)
+      cy.fixture('WPCT').then((data) =>{
+      const ln = new Login();
+      ln.setEmail(data.email)
+      ln.clickContinue();
+      ln.setPassword(data.password)
+      ln.clickContinue();
+      ln.verifyLogin();
         cy.get("a:nth-child(3)").click()
-        cy.wait(3000)
+        cy.wait(1000)
         cy.get("#termsAndConditions").check().should('be.checked')
-        cy.wait(3000)
+        cy.wait(1000)
         cy.get("body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)").click()
         cy.url().should('eq', 'https://workpermitconsultancy.com/apply-now')
         cy.wait(1000)
@@ -35,4 +36,5 @@ describe ('Apply Now Page test', () =>{
         cy.get('body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)').should('exist');
         cy.get('body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > form:nth-child(1) > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)').click()
       })
+})
 })
