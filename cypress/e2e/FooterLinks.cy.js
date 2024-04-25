@@ -1,20 +1,20 @@
-describe ('Footer Social Media Links Tests', () => {
-    it ('should navigate to Facebook page', () => {
+describe ('Footer Links Tests', () => {
+    it ('should navigate to specified page', () => {
         cy.visit ('https://workpermitconsultancy.com/')
         cy.scrollTo('bottom')
-        cy.get(".flex.items-center.my-2:nth-child(1)").click()
-        cy.url().should('not.eq', 'https://www.facebook.com/');
+        cy.xpath("//a[normalize-space()='Information Security']").click()
+        cy.url().should('eq', 'https://workpermitconsultancy.com/information-security');
 
         cy.wait(1000)
-        cy.get(".flex.items-center.my-2:nth-child(2)").click()
-        cy.url().should('not.eq', 'https://www.twitter.com/');
+        cy.xpath("//a[normalize-space()='Cookie Policy']").click()
+        cy.url().should('eq', 'https://workpermitconsultancy.com/cookie-policy');
 
         cy.wait(1000)
-        cy.get(".flex.items-center.my-2:nth-child(3)").click()
-        cy.url().should('not.eq', 'https://www.linkedin.com/');
+        cy.xpath("//a[normalize-space()='Privacy Policy']").click()
+        cy.url().should('eq', 'https://workpermitconsultancy.com/privacy-policy');
 
         cy.wait(1000)
-        cy.get(".flex.items-center.my-2:nth-child(4)").click()
-        cy.url().should('not.eq', 'https://www.instagram.com/');
+        cy.xpath("//a[normalize-space()='Term & Conditions']").click()
+        cy.url().should('eq', 'https://workpermitconsultancy.com/terms-and-conditions');
     })
 })
