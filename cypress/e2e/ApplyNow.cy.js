@@ -1,7 +1,7 @@
 import Login from "..//PageObjects/Login";
 
 describe ('Apply Now Page test', () =>{
-    it.only('sign-in', ()=>{
+    it('sign-in', ()=>{
       cy.visit("https://workpermitconsultancy.com/")
       cy.get("body > div:nth-child(2) > header:nth-child(1) > nav:nth-child(1) > div:nth-child(5) > a:nth-child(1)").click()
       cy.wait(1000)

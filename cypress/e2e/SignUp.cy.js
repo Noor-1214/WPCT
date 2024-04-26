@@ -15,6 +15,7 @@ describe ("Sign-in", () => {
         cy.get('#password-field').type('valid_password');
         cy.get('.cl-formButtonPrimary.🔒️.cl-internal-1fsg6zy').click();
         cy.get('.cl-headerTitle.🔒️.cl-internal-1vbdq0x').should('have.text', 'Verify your email');
+        cy.wait(2000)
       });
     
     // Enter invalid Email and submit
@@ -24,6 +25,7 @@ describe ("Sign-in", () => {
         cy.get('#password-field').type('invalid_password');
         cy.get('.cl-formButtonPrimary.🔒️.cl-internal-1fsg6zy').click();
         cy.contains("Email address must be a valid email address.").should('be.visible');
+        cy.wait(2000)
       });
 
     // Enter invalid Password and submit
@@ -33,10 +35,11 @@ describe ("Sign-in", () => {
         cy.get('#password-field').type('invalid');
         cy.get('.cl-formButtonPrimary.🔒️.cl-internal-1fsg6zy').click();
         cy.contains("Your password must contain 8 or more characters.").should('be.visible');
+        cy.wait(2000)
       });
 
      // Submit form with blank fields    
-      it.only('should display error messages for blank credentials', () => {
+      it('should display error messages for blank credentials', () => {
         cy.visit('https://workpermitconsultancy.com/sign-up#/?redirect_url=https%3A%2F%2Fworkpermitconsultancy.com%2F')
         cy.get('.cl-formButtonPrimary.🔒️.cl-internal-1fsg6zy').click();
 
@@ -50,6 +53,7 @@ describe ("Sign-in", () => {
         else {
           cy.get('.cl-headerTitle.🔒️.cl-internal-1vbdq0x').should('have.text','Verify your email')
         }
+        cy.wait(2000)
       });
     });
   })

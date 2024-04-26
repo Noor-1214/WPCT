@@ -46,6 +46,29 @@ describe('Manage Account Settings', ()=> {
         cy.get(".cl-formButtonPrimary").click()
         cy.get(".cl-internal-1kii5f8").click()
 })
+it ('Change Password', ()=>{
+        cy.visit("https://workpermitconsultancy.com/")
+            cy.get("body > div:nth-child(2) > header:nth-child(1) > nav:nth-child(1) > div:nth-child(5) > a:nth-child(1)").click()
+            cy.wait(1000)
+            cy.fixture('WPCT').then((data) =>{
+            const ln = new Login();
+            ln.setEmail(data.email)
+            ln.clickContinue();
+            ln.setPassword(data.password)
+            ln.clickContinue();
+            ln.verifyLogin();
+            })
+        cy.wait(1000)
+        cy.get (".cl-avatarImage.cl-userButtonAvatarImage").click()
+        cy.wait(1000)
+        cy.get(".cl-userButtonPopoverActionButtonText.cl-userButtonPopoverActionButtonText__manageAccount").click()
+        cy.wait(1000)
+        cy.get(".cl-profileSectionPrimaryButton.cl-profileSectionPrimaryButton__password").click()
+        cy.get("#currentPassword-field").type("workpermit@123")
+        cy.get("#newPassword-field").type("workpermit!123")
+        cy.get("#confirmPassword-field").type("workpermit!123")
+        cy.get(".cl-formButtonPrimary").click()
+})
 it ('Delete Account', ()=>{
     cy.visit("https://workpermitconsultancy.com/")
     cy.get("body > div:nth-child(2) > header:nth-child(1) > nav:nth-child(1) > div:nth-child(5) > a:nth-child(1)").click()
@@ -64,29 +87,5 @@ cy.wait(1000)
     cy.get(".cl-userButtonPopoverActionButtonText.cl-userButtonPopoverActionButtonText__manageAccount").click()
     cy.scrollTo('bottom')
     cy.get("button[aria-label='Delete account']").click()
-})
-it.only ('Change Password', ()=>{
-        cy.visit("https://workpermitconsultancy.com/")
-            cy.get("body > div:nth-child(2) > header:nth-child(1) > nav:nth-child(1) > div:nth-child(5) > a:nth-child(1)").click()
-            cy.wait(1000)
-            cy.fixture('WPCT').then((data) =>{
-            const ln = new Login();
-            ln.setEmail(data.email)
-            ln.clickContinue();
-            ln.setPassword(data.password)
-            ln.clickContinue();
-            ln.verifyLogin();
-            })
-        cy.wait(1000)
-        cy.get (".cl-avatarImage.cl-userButtonAvatarImage").click()
-        cy.wait(1000)
-        cy.get(".cl-userButtonPopoverActionButtonText.cl-userButtonPopoverActionButtonText__manageAccount").click()
-        cy.wait(1000)
-        cy.get(".cl-profileSectionPrimaryButton.cl-profileSectionPrimaryButton__password").click()
-        cy.get("#currentPassword-field").type("workpermit!123")
-        cy.get("#newPassword-field").type("workpermit@123")
-        cy.get("#confirmPassword-field").type("workpermit@123")
-        // cy.get("#signOutOfOtherSessions-field").check().should('be checked')
-        cy.get(".cl-formButtonPrimary").click()
 })
 })
